@@ -1,11 +1,12 @@
 import uvicorn
 from fastapi import FastAPI, HTTPException, Request
 
-from bucket_token_algorithm import BucketTokenAlgorithm
+from window_counter_algorithm import WindowCounterAlgorithm
 
 app = FastAPI()
 
-strategy = BucketTokenAlgorithm()
+# strategy = BucketTokenAlgorithm()
+strategy = WindowCounterAlgorithm()
 
 
 @app.get("/limited", response_model=str)
