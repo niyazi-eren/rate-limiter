@@ -1,13 +1,14 @@
 import uvicorn
 from fastapi import FastAPI, HTTPException, Request
 
-from sliding_window_log_algorithm import SlidingWindowLogAlgorithm
+from sliding_window_counter_algorithm import SlidingWindowCounterAlgorithm
 
 app = FastAPI()
 
 # strategy = BucketTokenAlgorithm()
 # strategy = WindowCounterAlgorithm()
-strategy = SlidingWindowLogAlgorithm()
+# strategy = SlidingWindowLogAlgorithm()
+strategy = SlidingWindowCounterAlgorithm()
 
 
 @app.get("/limited", response_model=str)
