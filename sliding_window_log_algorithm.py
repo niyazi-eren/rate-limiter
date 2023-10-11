@@ -2,22 +2,25 @@ import datetime
 
 
 class SlidingWindowLogAlgorithm:
-    def __init__(self):
+    def __init__(self, limit_rate: int):
         self.windows = []
+        self.is_async = False
+        self.limit_rate = limit_rate
 
     def is_valid(self, client_ip: str) -> bool:
         for window in self.windows:
             if window.client_ip == client_ip:
                 return window.is_valid()
 
-        self.windows.append(_SlidingWindowLog(client_ip))
+        self.windows.append(_SlidingWindowLog(client_ip, self.limit_rate))
         return True
 
 
 class _SlidingWindowLog:
-    def __init__(self, client_ip: str):
+    def __init__(self, client_ip: str, limit_rate: int):
+        self.limit_rate = limit_rate
         self._logs = []  # timestamps
-        self._threshold = 20  # 20 requests/min
+        self._threshold = limit_rate  # requests/min
         self.client_ip = client_ip
 
     def is_valid(self) -> bool:
